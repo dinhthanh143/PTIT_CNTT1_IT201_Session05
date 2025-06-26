@@ -23,7 +23,7 @@ int calSum(int arr[], int size) {
    if (size<0) {
       return 0;
    }
-   return arr[size] += calSum(arr, size-1);
+   return arr[size] + calSum(arr, size-1);
 }
 int main(){
    int size;
