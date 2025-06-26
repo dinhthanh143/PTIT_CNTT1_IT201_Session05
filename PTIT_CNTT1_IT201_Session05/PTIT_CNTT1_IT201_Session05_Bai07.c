@@ -3,9 +3,6 @@
 #include<math.h>
 #include<stdlib.h>
 int findFibonacci(int **fib,int n, int *size) {
-   (*size)++;
-   *fib = (int*)realloc(*fib, *size*sizeof(int));
-   (*fib)[*size-1] = n;
    if (n==0) {
       return 0;
    }
@@ -14,6 +11,13 @@ int findFibonacci(int **fib,int n, int *size) {
    }
 
 return findFibonacci(fib, n - 1, size) + findFibonacci(fib, n - 2, size);
+}
+void createFibonacci(int **fib, int n, int *size) {
+   *size = n+1;
+   *fib = (int*)malloc(*size*sizeof(int));
+   for (int i=0; i<n+1; i++) {
+      (*fib)[i] = findFibonacci(fib, i, size);
+   }
 }
 int main(){
    int num;
@@ -28,7 +32,7 @@ int main(){
    }
    int size = 0;
    int *fibonacci = NULL;
-   findFibonacci(&fibonacci, num, &size);
+   createFibonacci(&fibonacci, num, &size);
    for (int i=0; i<size; i++) {
       printf("%d\t", fibonacci[i]);
    }
